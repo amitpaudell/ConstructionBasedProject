@@ -27,10 +27,10 @@ function Header() {
   return (
     <div>
       <nav>
-        <div className="flex justify-between relative container mx-auto  p-6">
+        <div className="flex justify-between relative container mx-auto h-[4rem] p-6">
           {/* Logo */}
           <div>
-            <h1 className="font-medium uppercase text-xl text-">
+            <h1 className="font-bold uppercase text-xl text-dark-grayish-blue">
               Unity Construction
             </h1>
           </div>
