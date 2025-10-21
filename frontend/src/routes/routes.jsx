@@ -5,6 +5,10 @@ import AboutUs from '../pages/AboutUs';
 import Services from '../pages/Services';
 import Projects from '../pages/Projects';
 import ContactUs from '../pages/ContactUs';
+import Dashboard from '../pages/backend_pages/Dashboard';
+import ServiceD from '../pages/backend_pages/ServiceD';
+import ProjectD from '../pages/backend_pages/ProjectD';
+import DashboardHome from '../pages/backend_pages/DashboardHome';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +34,24 @@ const router = createBrowserRouter([
       {
         path: 'contact',
         element: <ContactUs></ContactUs>,
+      },
+      {
+        path: 'admin',
+        element: <Dashboard></Dashboard>,
+        children: [
+          {
+            index: true,
+            element: <DashboardHome></DashboardHome>,
+          },
+          {
+            path: 'serviced',
+            element: <ServiceD></ServiceD>,
+          },
+          {
+            path: 'projectd',
+            element: <ProjectD></ProjectD>,
+          },
+        ],
       },
     ],
   },

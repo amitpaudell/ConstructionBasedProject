@@ -1,47 +1,40 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
-function Header() {
+function Dashboard() {
   const navigations = [
     {
-      name: 'Home',
-      href: '/',
-    },
-    {
-      name: 'About Us',
-      href: 'aboutus',
+      name: 'Dashboard',
+      path: '/admin',
     },
     {
       name: 'Services',
-      href: 'services',
+      path: '/admin/serviced',
     },
     {
       name: 'Projects',
-      href: 'projects',
-    },
-    {
-      name: 'Contact Us',
-      href: 'contact',
+      path: '/admin/projectd',
     },
   ];
   return (
-    <div>
+    <div className="flex flex-row items-center">
       <nav>
-        <div className="flex  bg-[#f2f4f7] justify-between relative container mx-auto h-[4rem] p-6">
+        <div className="flex flex-col bg-[#f2f4f7]  justify-between relative container mx-auto  p-6">
           {/* Logo */}
           <div>
-            <h1 className="font-bold uppercase text-xl text-dark-grayish-blue">
-              Unity Construction
+            <h1 className="font-bold  text-xl text-dark-grayish-blue">
+              Admin Panel
             </h1>
           </div>
 
           {/* Items */}
-          <div className="hidden md:flex space-x-6 text-md">
+          <div className="flex flex-col  space-y-32 text-md">
             {navigations.map((item) => {
               return (
                 <NavLink
                   className="hover:text-dark-grayish-blue"
-                  to={item.href}
+                  to={item.path}
                 >
                   {item.name}
                 </NavLink>
@@ -50,8 +43,11 @@ function Header() {
           </div>
         </div>
       </nav>
+      <div>
+        <Outlet></Outlet>
+      </div>
     </div>
   );
 }
 
-export default Header;
+export default Dashboard;
