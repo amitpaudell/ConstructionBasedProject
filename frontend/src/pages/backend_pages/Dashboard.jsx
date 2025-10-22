@@ -18,7 +18,7 @@ function Dashboard() {
     },
   ];
   return (
-    <div className="flex flex-row items-center">
+    <div className="flex flex-row items-baseline">
       <nav>
         <div className="flex flex-col bg-[#f2f4f7]  justify-between relative container mx-auto  p-6">
           {/* Logo */}
