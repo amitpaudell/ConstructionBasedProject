@@ -33,6 +33,7 @@ function Dashboard() {
             {navigations.map((item) => {
               return (
                 <NavLink
+                  key={item.name}
                   className="hover:text-dark-grayish-blue"
                   to={item.path}
                 >

@@ -1,38 +1,22 @@
 const express = require('express');
-const Service = require('../models/ServiceModel');
+
+const serviceController = require('../controllers/serviceController');
 
 const router = express.Router();
 
 //Get all workouts
-router.get('/', (req, res) => {
-  res.json({ mssg: 'Get all workout' });
-});
+router.get('/', serviceController.getServices);
 
 //Get single workouts
-router.get('/:id', (req, res) => {
-  res.json({ mssg: 'Get a single workout' });
-});
+router.get('/:id', serviceController.getService);
 
 //POST a new workouts
-router.post('/', async (req, res) => {
-  const { image, title, description, status } = req.body;
-
-  try {
-    const service = await Service.create({ image, title, description, status });
-    res.status(200).json(service);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+router.post('/', serviceController.createService);
 
 //Delete a  workouts
-router.delete('/:id', (req, res) => {
-  res.json({ mssg: 'delete a workout' });
-});
+router.delete('/:id', serviceController.deleteService);
 
 //Update a  workouts
-router.patch('/:id', (req, res) => {
-  res.json({ mssg: 'update a workout' });
-});
+router.patch('/:id', serviceController.updateService);
 
 module.exports = router;

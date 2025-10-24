@@ -40,6 +40,7 @@ function Header() {
             {navigations.map((item) => {
               return (
                 <NavLink
+                  key={item.name}
                   className="hover:text-dark-grayish-blue"
                   to={item.href}
                 >

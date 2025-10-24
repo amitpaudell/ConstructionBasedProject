@@ -2,9 +2,16 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const constructionRoutes = require('./routes/construction');
 
 const app = express();
+
+app.use(
+  cors({
+    origin: '*',
+  })
+);
 
 //middleware
 app.use(express.json());

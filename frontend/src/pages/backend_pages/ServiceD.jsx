@@ -1,7 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function ServiceD() {
   const [showForm, setShowForm] = useState(false);
+
+  const [services, setServices] = useState(null);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      const response = await fetch('http://localhost:4000/api/construct');
+      const json = await response.json();
+
+      if (response.ok) {
+        setServices(json);
+      }
+    };
+    fetchServices();
+  }, []);
+
   return (
     <div className="p-12 min-h-[calc(100vh-4rem)]   min-w-[calc(100vw-12rem)]">
       {/* upper part */}
@@ -145,7 +160,9 @@ function ServiceD() {
         )}
 
         {/* Display information  */}
+
         <div className="mt-8 ">
+          {services && services.map((service) => <p>{service.title}</p>)}
           <table className="min-w-[calc(100vw-20rem)] rounded-md  table-auto md:table-fixed ">
             <thead className="text-left bg-slate-100 ">
               <tr>
