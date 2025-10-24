@@ -17,6 +17,64 @@ function ServiceD() {
     fetchServices();
   }, []);
 
+  //Handling a image file input
+  const [imageloading, setImageLoading] = useState(false);
+  const [image, setImage] = useState('');
+
+  const handleFileUpload = async (event) => {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    setImageLoading(true);
+    const data = new FormData();
+    data.append('file', file);
+    data.append('upload_preset', 'construction');
+    data.append('cloud_name', 'dpb8lbskr');
+
+    const res = await fetch(
+      ' https://api.cloudinary.com/v1_1/dpb8lbskr/image/upload',
+      {
+        method: 'POST',
+        body: data,
+      }
+    );
+
+    const uploadedImageURL = await res.json();
+    setImage(uploadedImageURL.url);
+    setImageLoading(false);
+  };
+
+  //Handling a form
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [status, setStatus] = useState('');
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const services = { image, title, description, status };
+    const response = await fetch('http://localhost:4000/api/construct', {
+      method: 'POST',
+      body: JSON.stringify(services),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const json = await response.json();
+    if (!response.ok) {
+      setError(json.error);
+    }
+    if (response.ok) {
+      setImage('');
+      setTitle('');
+      setDescription('');
+      setStatus('');
+      setError(null);
+      console.log('new workout added');
+    }
+  };
+
   return (
     <div className="p-12 min-h-[calc(100vh-4rem)]   min-w-[calc(100vw-12rem)]">
       {/* upper part */}
@@ -38,6 +96,7 @@ function ServiceD() {
       </div>
 
       {/* Lower part */}
+      {error && <div>{error}</div>}
       <div>
         {/* Form Part */}
         {showForm && (
@@ -45,11 +104,14 @@ function ServiceD() {
             <div>
               <h3 className="font-medium text-xl">Create a new project</h3>
             </div>
-            <form action="" className="">
+            <form action="" className="" encType="multipart/form-data">
               <label htmlFor="">Upload an Image</label>
               <br />
+              {imageloading ? 'Uploading' : ' '}
               <input
                 type="file"
+                accept="image/png, image/jpeg, image/jpg"
+                onChange={handleFileUpload}
                 className="block mb-5 w-full text-sm text-gray-500
          file:mr-4 file:py-2 file:px-4
          file:rounded-full file:border-0
@@ -63,6 +125,8 @@ function ServiceD() {
                 name="title"
                 className="border-1 block border-gray-400 w-[80%] py-2 px-2 rounded-md"
                 placeholder="Enter Service name"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />{' '}
               <br />
               <label htmlFor="">Description</label>
@@ -71,6 +135,8 @@ function ServiceD() {
                 id=""
                 cols="10"
                 rows="10"
+                onChange={(e) => setDescription(e.target.value)}
+                value={description}
                 className="border-1 block border-gray-400 w-[80%] py-2 px-2 rounded-md"
               ></textarea>
               <br />
@@ -80,13 +146,18 @@ function ServiceD() {
               <select
                 name="status"
                 id=""
+                onChange={(e) => setStatus(e.target.value)}
+                value={status}
                 className="border-1 block border-gray-400 w-[80%] py-2 px-2 rounded-md"
               >
-                <option value="active">Active</option>
-                <option value="block">Block</option>
+                <option value="Active">Active</option>
+                <option value="Block">Block</option>
               </select>
               <div className="mt-6 space-x-4">
-                <button className="bg-green-500 rounded-md text-center px-4 py-2 text-white font-sans">
+                <button
+                  className="bg-green-500 rounded-md text-center px-4 py-2 text-white font-sans"
+                  onClick={handleSubmit}
+                >
                   Save
                 </button>
                 <button
@@ -162,7 +233,6 @@ function ServiceD() {
         {/* Display information  */}
 
         <div className="mt-8 ">
-          {services && services.map((service) => <p>{service.title}</p>)}
           <table className="min-w-[calc(100vw-20rem)] rounded-md  table-auto md:table-fixed ">
             <thead className="text-left bg-slate-100 ">
               <tr>
@@ -174,30 +244,32 @@ function ServiceD() {
                 </th>
               </tr>
             </thead>
-
-            <tbody>
-              <tr>
-                <td className="p-4 font-medium text-lg border border-slate-300">
-                  1
-                </td>
-                <td className="p-4 font-medium text-lg border border-slate-300">
-                  New Project
-                </td>
-                <td className="p-4 font-medium text-lg border border-slate-300">
-                  Active
-                </td>
-                <td className="p-4 font-medium text-lg border border-slate-300">
-                  <button className="bg-green-500 rounded-md text-center px-4 py-2 text-white font-sans">
-                    Edit
-                  </button>
-                </td>
-                <td className=" p-4 font-medium text-lg border border-slate-300">
-                  <button className="bg-red-500 rounded-md text-center px-4 py-2 text-white font-sans">
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
+            {services &&
+              services.map((service) => (
+                <tbody key={service._id}>
+                  <tr>
+                    <td className="p-4 font-medium text-lg border border-slate-300">
+                      {service._id}
+                    </td>
+                    <td className="p-4 font-medium text-lg border border-slate-300">
+                      {service.title}
+                    </td>
+                    <td className="p-4 font-medium text-lg border border-slate-300">
+                      {service.status}
+                    </td>
+                    <td className="p-4 font-medium text-lg border border-slate-300">
+                      <button className="bg-green-500 rounded-md text-center px-4 py-2 text-white font-sans">
+                        Edit
+                      </button>
+                    </td>
+                    <td className=" p-4 font-medium text-lg border border-slate-300">
+                      <button className="bg-red-500 rounded-md text-center px-4 py-2 text-white font-sans">
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
           </table>
         </div>
       </div>
