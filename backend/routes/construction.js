@@ -17,6 +17,6 @@ router.post('/', serviceController.createService);
 router.delete('/:id', serviceController.deleteService);
 
 //Update a  workouts
-router.patch('/:id', serviceController.updateService);
+router.put('/:id', serviceController.updateService);
 
 module.exports = router;

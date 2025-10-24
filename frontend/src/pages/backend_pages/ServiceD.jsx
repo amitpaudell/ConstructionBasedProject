@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 function ServiceD() {
   const [showForm, setShowForm] = useState(false);
-
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editingProjectId, setEditingProjectId] = useState(null);
   const [services, setServices] = useState(null);
 
   useEffect(() => {
@@ -54,24 +55,66 @@ function ServiceD() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const services = { image, title, description, status };
-    const response = await fetch('http://localhost:4000/api/construct', {
-      method: 'POST',
-      body: JSON.stringify(services),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const json = await response.json();
-    if (!response.ok) {
-      setError(json.error);
+
+    if (isEditMode && editingProjectId) {
+      const response = await fetch(
+        `http://localhost:4000/api/construct/${editingProjectId}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify(services),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const json = await response.json();
+      if (!response.ok) {
+        setError(json.error);
+      } else {
+        setImage('');
+        setTitle('');
+        setDescription('');
+        setStatus('');
+        setShowForm(false);
+        setIsEditMode(false);
+        setEditingProjectId(null);
+        setError(null);
+      }
+    } else {
+      const response = await fetch('http://localhost:4000/api/construct', {
+        method: 'POST',
+        body: JSON.stringify(services),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const json = await response.json();
+      if (!response.ok) {
+        setError(json.error);
+      }
+      if (response.ok) {
+        setImage('');
+        setTitle('');
+        setDescription('');
+        setStatus('');
+        setError(null);
+        setShowForm(false);
+        console.log('new workout added');
+      }
     }
-    if (response.ok) {
-      setImage('');
-      setTitle('');
-      setDescription('');
-      setStatus('');
+  };
+
+  const handleEdit = (id) => {
+    const projectToEdit = services.find((project) => project._id === id);
+    if (projectToEdit) {
+      setImage(projectToEdit.image);
+      setTitle(projectToEdit.title);
+      setDescription(projectToEdit.description);
+      setStatus(projectToEdit.status);
+      setShowForm(true);
+      setIsEditMode(true);
+      setEditingProjectId(id);
       setError(null);
-      console.log('new workout added');
     }
   };
 
@@ -162,7 +205,14 @@ function ServiceD() {
                 </button>
                 <button
                   className="bg-red-500 rounded-md text-center px-4 py-2 text-white font-sans"
-                  onClick={() => setShowForm(false)}
+                  onClick={() => {
+                    setImage('');
+                    setTitle('');
+                    setDescription('');
+                    setStatus('');
+                    setError(null);
+                    setShowForm(false);
+                  }}
                 >
                   Cancel
                 </button>
@@ -258,7 +308,10 @@ function ServiceD() {
                       {service.status}
                     </td>
                     <td className="p-4 font-medium text-lg border border-slate-300">
-                      <button className="bg-green-500 rounded-md text-center px-4 py-2 text-white font-sans">
+                      <button
+                        className="bg-green-500 rounded-md text-center px-4 py-2 text-white font-sans"
+                        onClick={() => handleEdit(service._id)}
+                      >
                         Edit
                       </button>
                     </td>
