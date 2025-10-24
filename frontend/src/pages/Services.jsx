@@ -1,6 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { useNavigate } from 'react-router-dom';
 
 function Services() {
+  const [services, setServices] = useState(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchServices = async () => {
+      const response = await fetch('http://localhost:4000/api/construct');
+      const json = await response.json();
+
+      if (response.ok) {
+        setServices(json);
+      }
+    };
+    fetchServices();
+  }, []);
+
+  const handleDetail = (id) => {
+    navigate(`/detail?q=${id}`);
+  };
   return (
     <div>
       <div>
@@ -13,34 +32,37 @@ function Services() {
           </p>
         </div>
 
-        <div>
-          <div class="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-96">
-            <div class="relative p-2.5 h-96 overflow-hidden rounded-xl bg-clip-border">
-              <img
-                src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=927&amp;q=80"
-                alt="card-image"
-                class="h-full w-full object-cover rounded-md"
-              />
-            </div>
-            <div class="p-4">
-              <div class="mb-2 flex items-center justify-between">
-                <p class="text-slate-800 text-xl font-semibold">
-                  Apple AirPods
-                </p>
+        {services &&
+          services.map((service) => (
+            <div>
+              <div class="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-96">
+                <div class="relative p-2.5 h-96 overflow-hidden rounded-xl bg-clip-border">
+                  <img
+                    src={service.image}
+                    alt="card-image"
+                    class="h-full w-full object-cover rounded-md"
+                  />
+                </div>
+                <div class="p-4">
+                  <div class="mb-2 flex items-center justify-between">
+                    <p class="text-slate-800 text-xl font-semibold">
+                      {service.title}
+                    </p>
+                  </div>
+                  <p class="text-slate-600 leading-normal font-light">
+                    {service.description.slice(0, 100)}...
+                  </p>
+                  <button
+                    class="rounded-md w-full mt-6 bg-cyan-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    type="button"
+                    onClick={() => handleDetail(service._id)}
+                  >
+                    Learn More
+                  </button>
+                </div>
               </div>
-              <p class="text-slate-600 leading-normal font-light">
-                With plenty of talk and listen time, voice-activated Siri
-                access, and an available wireless charging case.
-              </p>
-              <button
-                class="rounded-md w-full mt-6 bg-cyan-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="button"
-              >
-                Learn More
-              </button>
             </div>
-          </div>
-        </div>
+          ))}
       </div>
     </div>
   );

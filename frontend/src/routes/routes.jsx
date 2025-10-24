@@ -9,6 +9,7 @@ import Dashboard from '../pages/backend_pages/Dashboard';
 import ServiceD from '../pages/backend_pages/ServiceD';
 import ProjectD from '../pages/backend_pages/ProjectD';
 import DashboardHome from '../pages/backend_pages/DashboardHome';
+import ServiceDetails from '../pages/ServiceDetails';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: 'contact',
         element: <ContactUs></ContactUs>,
+      },
+      {
+        path: 'detail',
+        element: <ServiceDetails></ServiceDetails>,
       },
       {
         path: 'admin',

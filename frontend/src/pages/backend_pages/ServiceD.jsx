@@ -79,6 +79,15 @@ function ServiceD() {
         setIsEditMode(false);
         setEditingProjectId(null);
         setError(null);
+        setServices((prev) => {
+          return prev.map((service) => {
+            if (service._id === editingProjectId) {
+              return { ...service, ...services };
+            } else {
+              return service;
+            }
+          });
+        });
       }
     } else {
       const response = await fetch('http://localhost:4000/api/construct', {
@@ -100,6 +109,13 @@ function ServiceD() {
         setError(null);
         setShowForm(false);
         console.log('new workout added');
+        setServices((prev) => {
+          if (prev) {
+            return [json, ...prev];
+          } else {
+            return [json];
+          }
+        });
       }
     }
   };
@@ -115,6 +131,20 @@ function ServiceD() {
       setIsEditMode(true);
       setEditingProjectId(id);
       setError(null);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const respose = await fetch(`http://localhost:4000/api/construct/${id}`, {
+      method: 'DELETE',
+    });
+
+    const json = await respose.json();
+    if (respose.ok) {
+      console.log('Construction Deleted');
+      setServices((prev) => {
+        return prev.filter((service) => service._id !== id);
+      });
     }
   };
 
@@ -193,6 +223,7 @@ function ServiceD() {
                 value={status}
                 className="border-1 block border-gray-400 w-[80%] py-2 px-2 rounded-md"
               >
+                <option value="">-- Select Status --</option>
                 <option value="Active">Active</option>
                 <option value="Block">Block</option>
               </select>
@@ -316,7 +347,10 @@ function ServiceD() {
                       </button>
                     </td>
                     <td className=" p-4 font-medium text-lg border border-slate-300">
-                      <button className="bg-red-500 rounded-md text-center px-4 py-2 text-white font-sans">
+                      <button
+                        className="bg-red-500 rounded-md text-center px-4 py-2 text-white font-sans"
+                        onClick={() => handleDelete(service._id)}
+                      >
                         Delete
                       </button>
                     </td>
