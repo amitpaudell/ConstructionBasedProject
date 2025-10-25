@@ -21,11 +21,16 @@ function ServiceD() {
   //Handling a image file input
   const [imageloading, setImageLoading] = useState(false);
   const [image, setImage] = useState('');
+  const [imagePreview, setImagePreview] = useState('');
 
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
 
     if (!file) return;
+
+    // Create preview URL immediately
+    const previewURL = URL.createObjectURL(file);
+    setImagePreview(previewURL);
 
     setImageLoading(true);
     const data = new FormData();
@@ -44,6 +49,21 @@ function ServiceD() {
     const uploadedImageURL = await res.json();
     setImage(uploadedImageURL.url);
     setImageLoading(false);
+  };
+
+  // Function to remove image preview
+  const removeImagePreview = () => {
+    if (imagePreview) {
+      URL.revokeObjectURL(imagePreview);
+    }
+    setImagePreview('');
+    setImage('');
+    // Reset the file input
+    const fileInput = document.querySelector('input[type="file"]');
+
+    if (fileInput) {
+      fileInput.value = '';
+    }
   };
 
   //Handling a form
@@ -72,6 +92,7 @@ function ServiceD() {
         setError(json.error);
       } else {
         setImage('');
+        setImagePreview('');
         setTitle('');
         setDescription('');
         setStatus('');
@@ -103,6 +124,7 @@ function ServiceD() {
       }
       if (response.ok) {
         setImage('');
+        setImagePreview('');
         setTitle('');
         setDescription('');
         setStatus('');
@@ -124,6 +146,7 @@ function ServiceD() {
     const projectToEdit = services.find((project) => project._id === id);
     if (projectToEdit) {
       setImage(projectToEdit.image);
+      setImagePreview(projectToEdit.image); // Set preview to existing image
       setTitle(projectToEdit.title);
       setDescription(projectToEdit.description);
       setStatus(projectToEdit.status);
@@ -192,6 +215,23 @@ function ServiceD() {
          file:bg-blue-50 file:text-blue-700
          hover:file:bg-blue-100"
               />
+              {/* Image Preview */}
+              {imagePreview && (
+                <div className="relative inline-block mb-5">
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="w-32 h-32 object-cover rounded-lg border border-gray-300"
+                  />
+                  <button
+                    type="button"
+                    onClick={removeImagePreview}
+                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold hover:bg-red-600 transition-colors"
+                  >
+                    ×
+                  </button>
+                </div>
+              )}
               <label htmlFor="">Title</label>
               <input
                 type="text"
@@ -238,6 +278,7 @@ function ServiceD() {
                   className="bg-red-500 rounded-md text-center px-4 py-2 text-white font-sans"
                   onClick={() => {
                     setImage('');
+                    setImagePreview('');
                     setTitle('');
                     setDescription('');
                     setStatus('');
