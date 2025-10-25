@@ -23,30 +23,22 @@ function ServiceDetails() {
   return (
     <div>
       {service && (
-        <div>
-          <div class="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-96">
-            <div class="relative p-2.5 h-96 overflow-hidden rounded-xl bg-clip-border">
-              <img
-                src={service.image}
-                alt="card-image"
-                class="h-full w-full object-cover rounded-md"
-              />
-            </div>
-            <div class="p-4">
-              <div class="mb-2 flex items-center justify-between">
-                <p class="text-slate-800 text-xl font-semibold">
-                  {service.title}
-                </p>
-              </div>
-              <p class="text-slate-600 leading-normal font-light">
-                {service.description}
-              </p>
-              <button
-                class="rounded-md w-full mt-6 bg-cyan-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-cyan-700 focus:shadow-none active:bg-cyan-700 hover:bg-cyan-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="button"
-              >
-                Learn More
-              </button>
+        <div className="m-32">
+          {/* Upper */}
+          <div className="mt-12 w-full h-32 text-6xl font-bold ">
+            <h1 className="text-center">{service.title}</h1>
+          </div>
+
+          {/* Lower */}
+          <div>
+            {/* Sections list
+              <div></div> */}
+
+            {/* Main Content description with image */}
+            <div className="flex flex-col space-y-8">
+              <img src={service.image} alt="" />
+              <h3 className="font-bold text-3xl">{service.title}</h3>
+              <h3 className="text-2xl text-justify">{service.description}</h3>
             </div>
           </div>
         </div>
