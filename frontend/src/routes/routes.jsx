@@ -10,6 +10,7 @@ import ServiceD from '../pages/backend_pages/ServiceD';
 import ProjectD from '../pages/backend_pages/ProjectD';
 import DashboardHome from '../pages/backend_pages/DashboardHome';
 import ServiceDetails from '../pages/ServiceDetails';
+import ProjectDetail from '../pages/ProjectDetail';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: 'detail',
         element: <ServiceDetails></ServiceDetails>,
+      },
+      {
+        path: 'detailP',
+        element: <ProjectDetail></ProjectDetail>,
       },
       {
         path: 'admin',
