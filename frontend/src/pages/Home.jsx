@@ -1,5 +1,7 @@
 import React from 'react';
 import Cover from '../images/cover.jpg';
+import Map from '../images/map.png';
+import videoBg from '../assets/videobg.mp4';
 
 import Safety from '../images/icon-work-effort.svg';
 import CheckMark from '../images/icon-checkmark.svg';
@@ -112,6 +114,76 @@ function Home() {
               </p>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Video Section */}
+      <div className="ml-18 mt-24 mr-12">
+        {/* Text Section */}
+        <div className="flex flex-col space-y-12 items-center md:items-start md:flex-row  ">
+          {/* Left */}
+          <div className="w-full md:max-w-[40%]">
+            <h1 className="text-4xl font-bold max-w-md text-center md:text-left md:text-5xl">
+              We have a vision for the future of construction
+            </h1>
+          </div>
+
+          {/* Right */}
+
+          <div className="w-full md:max-w-[60%]">
+            <p className="text-xl">
+              {' '}
+              We are always looking ahead while we apply vast experience and
+              broad expertise to overcome your unique challenges, exceed your
+              expectations, and drive measurable value to your bottom line.
+            </p>
+          </div>
+        </div>
+
+        {/* Actual Video Content */}
+        <div className="w-full h-72 md:h-120 overflow-hidden rounded-lg">
+          <video
+            src={videoBg}
+            controls
+            className=" w-full h-full object-cover"
+          ></video>
+        </div>
+      </div>
+
+      {/* Global Map Section */}
+
+      <div className="bg-[#36383d] text-white  mt-24  p-24">
+        {/* Text Section */}
+        <div className="flex flex-col space-y-12 items-center md:items-start md:flex-row  ">
+          {/* Left */}
+          <div className="w-full md:max-w-[50%]">
+            <h1 className="text-4xl font-bold max-w-[80%] text-center md:text-left md:text-5xl">
+              Helping you transform communities across the globe.
+            </h1>
+          </div>
+
+          {/* Right */}
+
+          <div className="w-full md:max-w-[50%]">
+            <p className="text-xl">
+              {' '}
+              Unity Construction ranks among the largest general contractors in
+              the Nepal. No matter where or what you want to build, we mobilize
+              the right experts and resources to drive value, deliver excellence
+              and exceed your expectations.
+            </p>
+          </div>
+        </div>
+
+        {/* Map with Text section */}
+        <div className="mt-20 flex flex-col md:flex-row ">
+          {/* Map */}
+          <div className="w-[70%] ">
+            <img src={Map} alt="" />
+          </div>
+
+          {/* Changing Text */}
+          <div></div>
         </div>
       </div>
 
