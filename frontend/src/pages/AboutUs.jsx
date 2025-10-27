@@ -1,4 +1,6 @@
 import React from 'react';
+import CountUp from 'react-countup';
+
 import Latium from '../images/partners/latium.png';
 import Eddy from '../images/partners/eddy.png';
 import Copper from '../images/partners/coppertree.png';
@@ -49,47 +51,61 @@ function AboutUs() {
         <div className="ml-24 text-white text-3xl font-extralight md:max-w-[80%] text-center md:text-left md:text-5xl mb-12">
           Unity Construction by numbers
         </div>
-        <div className="flex flex-wrap gap-x-62 gap-y-24 mt-24 ml-24  ">
+        <div className="flex flex-wrap  items-center gap-x-36  gap-y-18 mt-24 ml-24  ">
           {/* Each Number with text block */}
           <div className="p-2">
-            <h3 className="text-7xl  text-[#fec525] font-bold">100%</h3>
+            <h3 className="text-7xl  text-[#fec525] font-bold">
+              <CountUp end={100} duration={3} />%
+            </h3>
             <p className="ml-6 text-white font-extralight text-xl">
               Employee Owned
             </p>
           </div>
 
           <div className="p-2">
-            <h3 className="text-7xl  text-[#fec525] font-bold">100%</h3>
+            <h3 className="text-7xl  text-[#fec525] font-bold">
+              <CountUp start={0} end={5.2} decimals={1} duration={3} />
+              K+
+            </h3>
             <p className="ml-6 text-white font-extralight text-xl">
-              Employee Owned
+              Salaried Employees
             </p>
           </div>
 
           <div className="p-2">
-            <h3 className="text-7xl  text-[#fec525] font-bold">100%</h3>
+            <h3 className="text-7xl  text-[#fec525] font-bold">
+              <CountUp end={20} duration={3} />+
+            </h3>
+            <p className="ml-6 text-white font-extralight text-xl">Offices</p>
+          </div>
+
+          <div className="p-2">
+            <h3 className="text-7xl  text-[#fec525] font-bold">
+              {' '}
+              <CountUp start={0} end={8.3} decimals={1} duration={3} />
+              B+
+            </h3>
             <p className="ml-6 text-white font-extralight text-xl">
-              Employee Owned
+              Annual Construction Volume in 2024
             </p>
           </div>
 
           <div className="p-2">
-            <h3 className="text-7xl  text-[#fec525] font-bold">100%</h3>
+            <h3 className="text-7xl  text-[#fec525] font-bold">
+              <CountUp end={1000} duration={3} />+
+            </h3>
             <p className="ml-6 text-white font-extralight text-xl">
-              Employee Owned
+              Projects Underway
             </p>
           </div>
 
           <div className="p-2">
-            <h3 className="text-7xl  text-[#fec525] font-bold">100%</h3>
+            <h3 className="text-7xl  text-[#fec525] font-bold">
+              {' '}
+              <CountUp start={0} end={6.7} decimals={1} duration={3} />M
+            </h3>
             <p className="ml-6 text-white font-extralight text-xl">
-              Employee Owned
-            </p>
-          </div>
-
-          <div className="p-2">
-            <h3 className="text-7xl  text-[#fec525] font-bold">100%</h3>
-            <p className="ml-6 text-white font-extralight text-xl">
-              Employee Owned
+              Donated to Community Organizations in 2024
             </p>
           </div>
         </div>

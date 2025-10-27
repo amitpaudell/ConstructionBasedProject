@@ -1,4 +1,7 @@
 import React from 'react';
+
+import CountUp from 'react-countup';
+
 import Cover from '../images/cover.jpg';
 import Map from '../images/map.png';
 import videoBg from '../assets/videobg.mp4';
@@ -185,14 +188,18 @@ function Home() {
           {/* Changing Text */}
           <div>
             <div className="p-2 mb-8">
-              <h3 className="text-7xl  text-[#fec525] font-bold">100%</h3>
+              <h3 className="text-7xl  text-[#fec525] font-bold">
+                <CountUp end={100} duration={4} />%
+              </h3>
               <p className="ml-6 text-white font-extralight text-xl">
                 Employee Owned
               </p>
             </div>
 
             <div className="p-2">
-              <h3 className="text-7xl  text-[#fec525] font-bold">1,000+</h3>
+              <h3 className="text-7xl  text-[#fec525] font-bold">
+                <CountUp end={1000} duration={3} />+
+              </h3>
               <p className="ml-6 text-white font-extralight text-xl">
                 Active Projects
               </p>
