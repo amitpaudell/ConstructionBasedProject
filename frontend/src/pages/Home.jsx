@@ -176,14 +176,28 @@ function Home() {
         </div>
 
         {/* Map with Text section */}
-        <div className="mt-20 flex flex-col md:flex-row ">
+        <div className="mt-20 flex flex-col md:flex-row md:items-start md:space-x-56 ">
           {/* Map */}
-          <div className="w-[70%] ">
+          <div className="w-[60%] ">
             <img src={Map} alt="" />
           </div>
 
           {/* Changing Text */}
-          <div></div>
+          <div>
+            <div className="p-2 mb-8">
+              <h3 className="text-7xl  text-[#fec525] font-bold">100%</h3>
+              <p className="ml-6 text-white font-extralight text-xl">
+                Employee Owned
+              </p>
+            </div>
+
+            <div className="p-2">
+              <h3 className="text-7xl  text-[#fec525] font-bold">1,000+</h3>
+              <p className="ml-6 text-white font-extralight text-xl">
+                Active Projects
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 

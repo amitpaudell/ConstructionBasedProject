@@ -1,5 +1,12 @@
 import React from 'react';
+import Latium from '../images/partners/latium.png';
+import Eddy from '../images/partners/eddy.png';
+import Copper from '../images/partners/coppertree.png';
+import Drone from '../images/partners/dronedeploy.png';
+import Hammer from '../images/partners/hammertech.png';
+import Vita from '../images/partners/vita.png';
 
+import { FiExternalLink } from 'react-icons/fi';
 function AboutUs() {
   return (
     <div className="">
@@ -42,7 +49,7 @@ function AboutUs() {
         <div className="ml-24 text-white text-3xl font-extralight md:max-w-[80%] text-center md:text-left md:text-5xl mb-12">
           Unity Construction by numbers
         </div>
-        <div className="grid grid-cols-3 gap-8 mt-24 ml-24  ">
+        <div className="flex flex-wrap gap-x-62 gap-y-24 mt-24 ml-24  ">
           {/* Each Number with text block */}
           <div className="p-2">
             <h3 className="text-7xl  text-[#fec525] font-bold">100%</h3>
@@ -84,6 +91,130 @@ function AboutUs() {
             <p className="ml-6 text-white font-extralight text-xl">
               Employee Owned
             </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Strategic Partners */}
+      <div>
+        <div className="m-8 md:m-32 mb-24 flex flex-col space-y-12 items-center md:items-start md:flex-row  ">
+          {/* Left */}
+          <div className="w-full md:max-w-[40%]">
+            <h1 className="text-4xl font-bold max-w-md text-center md:text-left md:text-5xl">
+              Our Strategic Partners
+            </h1>
+          </div>
+
+          {/* Right */}
+
+          <div className="w-full md:max-w-[60%]">
+            <p className="text-xl">
+              {' '}
+              At PCL our technology seamlessly integrates with a diverse range
+              of product vendors, enabling a streamlined cloud-based experience
+              across various platforms.
+            </p>
+          </div>
+        </div>
+
+        {/* Partners Section */}
+
+        <div className="m-8 md:m-32 flex flex-wrap gap-18">
+          {/* Each Block */}
+          <div className="h-62 w-92 ">
+            <img src={Latium} alt="" className="w-full" />
+            <div>
+              <a href="https://www.latiumtech.com/ " target="_blank">
+                <button className="hover:bg-[#00502f] cursor-pointer text-center hover:text-white transition delay-100 duration-300 border-2 w-full py-4 uppercase font-medium">
+                  Find Out More
+                  <FiExternalLink
+                    className="
+                
+                -mt-1 ml-4 text-xl inline-block"
+                  />
+                </button>
+              </a>
+            </div>
+          </div>
+
+          <div className="h-62 w-92 ">
+            <img src={Eddy} alt="" className="w-full" />
+            <div>
+              <a href="https://eddysolutions.com/" target="_blank">
+                <button className="hover:bg-[#00502f] cursor-pointer text-center hover:text-white transition delay-100 duration-300 border-2 w-full py-4 uppercase font-medium">
+                  Find Out More
+                  <FiExternalLink
+                    className="
+                
+                -mt-1 ml-4 text-xl inline-block"
+                  />
+                </button>
+              </a>
+            </div>
+          </div>
+
+          <div className="h-62 w-92 ">
+            <img src={Copper} alt="" className="w-full" />
+            <div>
+              <a href="https://coppertreeanalytics.com/" target="_blank">
+                <button className="hover:bg-[#00502f] cursor-pointer text-center hover:text-white transition delay-100 duration-300 border-2 w-full py-4 uppercase font-medium">
+                  Find Out More
+                  <FiExternalLink
+                    className="
+                
+                -mt-1 ml-4 text-xl inline-block"
+                  />
+                </button>
+              </a>
+            </div>
+          </div>
+
+          <div className="h-62 w-92 ">
+            <img src={Drone} alt="" className="w-full" />
+            <div>
+              <a href="https://www.dronedeploy.com/ " target="_blank">
+                <button className="hover:bg-[#00502f] cursor-pointer text-center hover:text-white transition delay-100 duration-300 border-2 w-full py-4 uppercase font-medium">
+                  Find Out More
+                  <FiExternalLink
+                    className="
+                
+                -mt-1 ml-4 text-xl inline-block"
+                  />
+                </button>
+              </a>
+            </div>
+          </div>
+
+          <div className="h-62 w-92 ">
+            <img src={Hammer} alt="" className="w-full" />
+            <div>
+              <a href="https://www.hammertech.com/en-us/ " target="_blank">
+                <button className="hover:bg-[#00502f] cursor-pointer text-center hover:text-white transition delay-100 duration-300 border-2 w-full py-4 uppercase font-medium">
+                  Find Out More
+                  <FiExternalLink
+                    className="
+                
+                -mt-1 ml-4 text-xl inline-block"
+                  />
+                </button>
+              </a>
+            </div>
+          </div>
+
+          <div className="h-62 w-92 ">
+            <img src={Vita} alt="" className="w-full" />
+            <div>
+              <a href="https://www.vitaindustrial.com/ " target="_blank">
+                <button className="hover:bg-[#00502f] cursor-pointer text-center hover:text-white transition delay-100 duration-300 border-2 w-full py-4 uppercase font-medium">
+                  Find Out More
+                  <FiExternalLink
+                    className="
+                
+                -mt-1 ml-4 text-xl inline-block"
+                  />
+                </button>
+              </a>
+            </div>
           </div>
         </div>
       </div>
