@@ -189,7 +189,7 @@ function Home() {
           <div>
             <div className="p-2 mb-8">
               <h3 className="text-7xl  text-[#fec525] font-bold">
-                <CountUp end={100} duration={4} />%
+                <CountUp end={100} duration={5} />%
               </h3>
               <p className="ml-6 text-white font-extralight text-xl">
                 Employee Owned
