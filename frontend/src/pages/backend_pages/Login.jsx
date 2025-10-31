@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
+import { login, logout } from '../../features/login/authSlice';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
     if (username == 'admin' && password == 'pass') {
       dispatch(login());
+      setError('');
+      navigate('/admin');
     } else {
       dispatch(logout());
+      setError('Invalid username or password');
     }
   }
 
