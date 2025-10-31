@@ -1,8 +1,11 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
+import { useDispatch, useSelector } from 'react-redux';
+
 function Dashboard() {
+  const user = useSelector((state) => state.auth.value);
   const navigations = [
     {
       name: 'Dashboard',
@@ -44,9 +47,7 @@ function Dashboard() {
           </div>
         </div>
       </nav>
-      <div>
-        <Outlet></Outlet>
-      </div>
+      <div>{user ? <Outlet /> : <Navigate to="/login"></Navigate>}</div>
     </div>
   );
 }
