@@ -11,6 +11,7 @@ import ProjectD from '../pages/backend_pages/ProjectD';
 import DashboardHome from '../pages/backend_pages/DashboardHome';
 import ServiceDetails from '../pages/ServiceDetails';
 import ProjectDetail from '../pages/ProjectDetail';
+import Login from '../pages/backend_pages/Login';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: 'detailP',
         element: <ProjectDetail></ProjectDetail>,
+      },
+      {
+        path: 'login',
+        element: <Login></Login>,
       },
       {
         path: 'admin',

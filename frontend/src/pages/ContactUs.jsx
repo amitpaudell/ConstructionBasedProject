@@ -1,17 +1,44 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import { useForm } from 'react-hook-form';
+
 function ContactUs() {
+  const formRef = useRef();
+
   const {
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm({
+    mode: 'onSubmit',
+  });
 
-  async function onSubmit(data) {
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-    console.log('Submitting the form', data);
-  }
+  // ✅ Combined handler: Send via EmailJS using validated form data
+  const onSubmit = async (data) => {
+    try {
+      // Use EmailJS's sendForm (if using refs) or send (if sending manually)
+      await emailjs.send(
+        'service_vyt476l', // 🔹 from EmailJS dashboard
+        'template_jy4zhow', // 🔹 your email template ID
+        {
+          from_name: data.name,
+          from_email: data.email,
+          phone: data.phone,
+          subject: data.subject,
+          message: data.message,
+        },
+        'N937LFX-R-mgzNB_m' // 🔹 your public key
+      );
+
+      alert('✅ Message sent successfully!');
+      reset(); // Clear the form
+    } catch (error) {
+      console.error('❌ Failed to send message:', error);
+      alert('Something went wrong. Please try again later.');
+    }
+  };
+
   return (
     <div>
       {/* Top Section */}
@@ -27,96 +54,116 @@ function ContactUs() {
       </div>
 
       {/* Form Section */}
-      <div className="mt-14 container mx-auto  border-slate-400 shadow-2xl rounded-md p-8">
-        {/* <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="">First Name</label>
-          <input
-            className={errors.firstName ? 'border-red-500' : ''}
-            type="text"
-            {...register('firstName', {
-              required: true,
-              minLength: { value: 3, message: 'Min length atleast 3' },
-            })}
-          />
-          {errors.firstName && (
-            <p className="text-red-600">{errors.firstName.message}</p>
+      <div className="mt-14 container mx-auto border-slate-400 shadow-2xl rounded-md p-8">
+        <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
+          {/* Error messages */}
+          {errors.name && <p className="text-red-600">{errors.name.message}</p>}
+          {errors.email && (
+            <p className="text-red-600">{errors.email.message}</p>
+          )}
+          {errors.phone && (
+            <p className="text-red-600">{errors.phone.message}</p>
+          )}
+          {errors.subject && (
+            <p className="text-red-600">{errors.subject.message}</p>
+          )}
+          {errors.message && (
+            <p className="text-red-600">{errors.message.message}</p>
           )}
 
-          <label htmlFor="">Last Name</label>
-          <input
-            type="text"
-            {...register('lastName', {
-              pattern: {
-                value: /^[A-Za-z]+$/i,
-                message: 'Last name is not as per rules',
-              },
-            })}
-          />
-
-          <input
-            type="submit"
-            disabled={isSubmitting}
-            value={isSubmitting ? 'Submitting' : 'Submit'}
-          />
-        </form> */}
-
-        <form action="">
           {/* Grid Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="flex flex-col">
-              <label htmlFor="">Name</label>
+              <label>Name</label>
               <input
                 type="text"
+                {...register('name', {
+                  required: 'Name is required',
+                  minLength: {
+                    value: 3,
+                    message: 'Name should be at least 3 characters',
+                  },
+                })}
                 placeholder="Enter your name"
-                className="border border-slate-400 px-4 py-4 rounded-md placeholder:text-xl placeholder:-ml-8"
+                className="border border-slate-400 px-4 py-4 rounded-md placeholder:text-xl"
               />
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="">Email</label>
+              <label>Email</label>
               <input
                 type="text"
+                {...register('email', {
+                  required: 'Email is required',
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: 'Enter a valid email address',
+                  },
+                })}
                 placeholder="Enter your Email"
-                className="border border-slate-400 px-4 py-4 rounded-md placeholder:text-xl placeholder:-ml-8"
+                className="border border-slate-400 px-4 py-4 rounded-md placeholder:text-xl"
               />
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="">Phone</label>
+              <label>Phone</label>
               <input
                 type="text"
+                {...register('phone', {
+                  required: 'Phone number is required',
+                  pattern: {
+                    value: /^[0-9]{10}$/,
+                    message: 'Phone number must be exactly 10 digits',
+                  },
+                })}
                 placeholder="Enter your phone number"
-                className="border border-slate-400 px-4 py-4 rounded-md placeholder:text-xl placeholder:-ml-8"
+                className="border border-slate-400 px-4 py-4 rounded-md placeholder:text-xl"
               />
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="">Subject</label>
+              <label>Subject</label>
               <input
                 type="text"
+                {...register('subject', {
+                  required: 'Subject is required',
+                  minLength: {
+                    value: 3,
+                    message: 'Subject should be at least 3 characters',
+                  },
+                  maxLength: {
+                    value: 50,
+                    message: 'Subject should not exceed 50 characters',
+                  },
+                })}
                 placeholder="Subject"
-                className="border border-slate-400 px-4 py-4 rounded-md placeholder:text-xl placeholder:-ml-8"
+                className="border border-slate-400 px-4 py-4 rounded-md placeholder:text-xl"
               />
             </div>
           </div>
 
           <div className="flex flex-col mt-6">
-            <label htmlFor="">Message</label>
+            <label>Message</label>
             <textarea
-              name=""
-              id=""
+              {...register('message', {
+                required: 'Message is required',
+                minLength: {
+                  value: 10,
+                  message: 'Message should be at least 10 characters long',
+                },
+              })}
               cols="30"
               rows="10"
               placeholder="Enter your message"
-              className="border border-slate-400 px-2 py-2 rounded-md placeholder:text-xl "
+              className="border border-slate-400 px-2 py-2 rounded-md placeholder:text-xl"
             ></textarea>
           </div>
 
           <div className="mt-6">
             <input
               type="submit"
-              name=""
-              id=""
+              disabled={isSubmitting}
+              value={isSubmitting ? 'Submitting...' : 'Submit'}
               className="bg-[#1d54c8] text-white px-4 py-2 rounded-md cursor-pointer"
             />
           </div>
