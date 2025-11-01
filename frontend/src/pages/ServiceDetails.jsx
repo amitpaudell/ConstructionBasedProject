@@ -10,7 +10,13 @@ function ServiceDetails() {
 
   useEffect(() => {
     const fetchService = async () => {
+<<<<<<< HEAD
       const response = await fetch('http://localhost:4000/api/construct/${id}');
+=======
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/construct/${id}`
+      );
+>>>>>>> 2eee2cec9fec744771a79043e4c0ac3dc4f6100f
       const json = await response.json();
 
       if (response.ok) {

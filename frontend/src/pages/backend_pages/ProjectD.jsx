@@ -8,7 +8,7 @@ function ProjectD() {
 
   useEffect(() => {
     const fetchServices = async () => {
-      const response = await fetch('http://localhost:4000/api/project');
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/project`);
       const json = await response.json();
 
       if (response.ok) {
@@ -89,7 +89,7 @@ function ProjectD() {
 
     if (isEditMode && editingProjectId) {
       const response = await fetch(
-        `http://localhost:4000/api/project/${editingProjectId}`,
+        `${import.meta.env.VITE_BASE_URL}/project/${editingProjectId}`,
         {
           method: 'PUT',
           body: JSON.stringify(services),
@@ -125,7 +125,7 @@ function ProjectD() {
         });
       }
     } else {
-      const response = await fetch('http://localhost:4000/api/project', {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/project`, {
         method: 'POST',
         body: JSON.stringify(services),
         headers: {
@@ -178,7 +178,11 @@ function ProjectD() {
   };
 
   const handleDelete = async (id) => {
+<<<<<<< HEAD
     const respose = await fetch(`http://localhost:4000/api/${id}`, {
+=======
+    const respose = await fetch(`${import.meta.env.VITE_BASE_URL}/${id}`, {
+>>>>>>> 2eee2cec9fec744771a79043e4c0ac3dc4f6100f
       method: 'DELETE',
     });
 
