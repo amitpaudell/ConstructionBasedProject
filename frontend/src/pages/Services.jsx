@@ -7,9 +7,7 @@ function Services() {
   const navigate = useNavigate();
   useEffect(() => {
     const fetchServices = async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_BASE_URL}/construct`
-      );
+      const response = await fetch('http://localhost:4000/api/construct');
       const json = await response.json();
 
       if (response.ok) {

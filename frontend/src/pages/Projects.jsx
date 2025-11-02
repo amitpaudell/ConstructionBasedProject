@@ -3,12 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Projects() {
-  console.log(import.meta.env.VITE_BASE_URL);
   const [services, setServices] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     const fetchServices = async () => {
-      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/project`);
+      const response = await fetch('http://localhost:4000/api/project');
       const json = await response.json();
 
       if (response.ok) {
