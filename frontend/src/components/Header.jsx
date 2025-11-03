@@ -27,13 +27,15 @@ function Header() {
   return (
     <div>
       <nav>
-        <div className="flex  bg-[#f2f4f7] justify-between relative container mx-auto h-[4rem] p-6">
+        <div className="flex  text-xl justify-between relative container mx-auto h-[4rem] p-6">
           {/* Logo */}
-          <div>
-            <h1 className="font-bold uppercase text-xl text-dark-grayish-blue">
-              Unity Construction
-            </h1>
-          </div>
+          <a href="/">
+            <div>
+              <h1 className="font-bold uppercase text-xl text-dark-grayish-blue">
+                Unity Construction
+              </h1>
+            </div>
+          </a>
 
           {/* Items */}
           <div className="hidden md:flex space-x-6 text-md">
