@@ -4,19 +4,19 @@ const serviceController = require('../controllers/serviceController');
 
 const router = express.Router();
 
-//Get all workouts
+//Get all construction
 router.get('/', serviceController.getServices);
 
-//Get single workouts
+//Get single construction
 router.get('/:id', serviceController.getService);
 
-//POST a new workouts
+//POST a new construction
 router.post('/', serviceController.createService);
 
-//Delete a  workouts
+//Delete a  construction
 router.delete('/:id', serviceController.deleteService);
 
-//Update a  workouts
+//Update a  construction
 router.put('/:id', serviceController.updateService);
 
 module.exports = router;
