@@ -7,9 +7,7 @@ function Services() {
   const navigate = useNavigate();
   useEffect(() => {
     const fetchServices = async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/construct`
-      );
+      const response = await fetch('http://localhost:4000/api/construct');
       const json = await response.json();
 
       if (response.ok) {
@@ -29,12 +27,12 @@ function Services() {
           <h3 className="mx-auto text-2xl font-bold">Our Services </h3>
           <h1 className="mx-auto text-4xl ">Our Construction Services</h1>
           <p className="mx-auto text-xl">
-            We specialize in delivering top-quality solutions for residential,
-            commercial, and industrial developments.
+            We offer a diverse array of construction services, spanning
+            residential, commercial, and industrial projects.
           </p>
         </div>
 
-        <div className="flex flex-col flex-wrap   md:grid md:grid-cols-3 md:gap-8">
+        <div className="grid grid-cols-3  gap-8">
           {services &&
             services.map((service) => (
               <div>

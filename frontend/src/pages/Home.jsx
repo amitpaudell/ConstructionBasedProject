@@ -4,6 +4,7 @@ import CountUp from 'react-countup';
 
 import Cover from '../images/cover.jpg';
 import Map from '../images/map.png';
+import videoBg from '../assets/videobg.mp4';
 
 import Safety from '../images/icon-work-effort.svg';
 import CheckMark from '../images/icon-checkmark.svg';
@@ -22,7 +23,7 @@ function Home() {
             </h1>
             <p className="mt-10 mb-5 text-2xl font-medium text-[#FF9013] italic">
               We are committed to delivering high-quality construction solutions
-              that combine innovation, precision and sustainability
+              that combine innovation, precision, and sustainability.
             </p>
             <p className="tex-md">
               At Unity Constructions, we believe that every project is more than
@@ -143,15 +144,12 @@ function Home() {
         </div>
 
         {/* Actual Video Content */}
-        <div className="w-full aspect-video overflow-hidden rounded-lg">
-          <iframe
-            className="w-full h-full"
-            src="https://www.youtube.com/embed/xVbAeIR3HUE?autoplay=0&controls=1"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+        <div className="w-full h-72 md:h-120 overflow-hidden rounded-lg">
+          <video
+            src={videoBg}
+            controls
+            className=" w-full h-full object-cover"
+          ></video>
         </div>
       </div>
 

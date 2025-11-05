@@ -1,13 +1,13 @@
 const Project = require('../models/ProjectModel');
 const mongoose = require('mongoose');
 
-//get all projects
+//get all service
 exports.getProjects = async (req, res, next) => {
   const service = await Project.find({}).sort({ createAt: -1 });
   res.status(200).json(service);
 };
 
-//get a single project
+//get a single service
 exports.getProject = async (req, res) => {
   const { id } = req.params;
 
@@ -22,7 +22,7 @@ exports.getProject = async (req, res) => {
   res.status(200).json(service);
 };
 
-//post a project
+//post a service
 exports.createProject = async (req, res) => {
   const { image, title, location, typeConstruct, sector, description, status } =
     req.body;
@@ -43,7 +43,7 @@ exports.createProject = async (req, res) => {
   }
 };
 
-//delete a project
+//delete a service
 
 exports.deleteProject = async (req, res, next) => {
   const { id } = req.params;
@@ -60,7 +60,7 @@ exports.deleteProject = async (req, res, next) => {
   res.status(200).json(service);
 };
 
-//update a project
+//update a service
 exports.updateProject = async (req, res, next) => {
   const { id } = req.params;
 
