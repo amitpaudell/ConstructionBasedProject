@@ -32,7 +32,7 @@ function Projects() {
           </p>
         </div>
 
-        <div className="grid grid-cols-3  gap-8">
+        <div className="flex flex-col flex-wrap   md:grid md:grid-cols-3 md:gap-8">
           {services &&
             services.map((service) => (
               <div>
