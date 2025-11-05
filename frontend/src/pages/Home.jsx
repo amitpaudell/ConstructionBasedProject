@@ -22,7 +22,7 @@ function Home() {
             </h1>
             <p className="mt-10 mb-5 text-2xl font-medium text-[#FF9013] italic">
               We are committed to delivering high-quality construction solutions
-              that combine innovation, precision, and sustainability.
+              that combine innovation, precision and sustainability
             </p>
             <p className="tex-md">
               At Unity Constructions, we believe that every project is more than
