@@ -33,25 +33,14 @@ app.get('/', (req, res) => {
 app.use('/api/construct', constructionRoutes);
 app.use('/api/project', projectRoutes);
 
-// Connect to database (non-blocking for serverless)
-if (process.env.MONGO_URI) {
-  mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => {
-      console.log('Connected to database');
-    })
-    .catch((err) => {
-      console.log('Error while connecting to database', err);
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(process.env.PORT, () => {
+      console.log(`Server running at port ${process.env.PORT}`);
     });
-}
-
-// Start server only in local development
-if (process.env.NODE_ENV !== 'production' && process.env.VERCEL !== '1') {
-  const PORT = process.env.PORT || 4000;
-  app.listen(PORT, () => {
-    console.log(`Server running at port ${PORT}`);
+  })
+  .catch((err) => {
+    console.log('Error while connecting to database', err);
   });
-}
-
-// Export for Vercel serverless function
 module.exports = app;
