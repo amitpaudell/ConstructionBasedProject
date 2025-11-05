@@ -9,11 +9,7 @@ const projectRoutes = require('./routes/projects');
 
 const app = express();
 
-app.use(
-  cors({
-    origin: '*',
-  })
-);
+app.use(cors());
 
 //middleware
 app.use(express.json());
