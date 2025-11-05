@@ -9,11 +9,7 @@ const projectRoutes = require('./routes/projects');
 
 const app = express();
 
-app.use(
-  cors({
-    origin: '*',
-  })
-);
+app.use(cors());
 
 //middleware
 app.use(express.json());
@@ -22,19 +18,40 @@ app.use((req, res, next) => {
   next();
 });
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({
+    message: 'API is running',
+    endpoints: {
+      construct: '/api/construct',
+      project: '/api/project',
+    },
+  });
+});
+
 //routes
 app.use('/api/construct', constructionRoutes);
 app.use('/api/project', projectRoutes);
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log(
-        `Server running at port http://localhost:${process.env.PORT}`
-      );
+// Connect to database (non-blocking for serverless)
+if (process.env.MONGO_URI) {
+  mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => {
+      console.log('Connected to database');
+    })
+    .catch((err) => {
+      console.log('Error while connecting to database', err);
     });
-  })
-  .catch((err) => {
-    console.log('Error while connecting to database', err);
+}
+
+// Start server only in local development
+if (process.env.NODE_ENV !== 'production' && process.env.VERCEL !== '1') {
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => {
+    console.log(`Server running at port ${PORT}`);
   });
+}
+
+// Export for Vercel serverless function
+module.exports = app;
